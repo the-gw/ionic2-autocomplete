@@ -23,6 +23,10 @@
   "keywords": [
     "angular"
   ],
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/the-gw/ionic2-autocomplete/issues"
