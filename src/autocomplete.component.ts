@@ -125,6 +125,8 @@ export class AutoCompleteComponent implements ControlValueAccessor {
   public suggestions: any[];
   public formValue: any;
 
+  private wasClickedInside = false;
+
   public get showList(): boolean {
     return this._showList;
   }
@@ -358,14 +360,17 @@ export class AutoCompleteComponent implements ControlValueAccessor {
    * handle document click
    * @param event
    */
-  @HostListener('document:click', ['$event'])
-  private documentClickHandler(event) {
-    if (
-      (this.searchbarElem && !this.searchbarElem.nativeElement.value.includes(event.target)) ||
-      (!this.inputElem && this.inputElem._elementRef.nativeElement.contains(event.target))
-    ) {
+  @HostListener('click')
+  clickInside() {
+    this.wasClickedInside = true;
+  }
+
+  @HostListener('document:click')
+  clickout() {
+    if (!this.wasClickedInside) {
       this.hideItemList();
     }
+    this.wasClickedInside = false;
   }
 
   private getFormValue(selection: any): any {

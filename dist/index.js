@@ -32,6 +32,7 @@ var AutoCompleteComponent = /** @class */ (function () {
         this.hideListOnSelection = true;
         this.onTouchedCallback = noop;
         this.onChangeCallback = noop;
+        this.wasClickedInside = false;
         this.showListChanged = false;
         this.keyword = '';
         this.suggestions = [];
@@ -405,21 +406,26 @@ var AutoCompleteComponent = /** @class */ (function () {
      */
     /**
      * handle document click
-     * @private
-     * @param {?} event
      * @return {?}
      */
-    AutoCompleteComponent.prototype.documentClickHandler = /**
+    AutoCompleteComponent.prototype.clickInside = /**
      * handle document click
-     * @private
-     * @param {?} event
      * @return {?}
      */
-    function (event) {
-        if ((this.searchbarElem && !this.searchbarElem.nativeElement.value.includes(event.target)) ||
-            (!this.inputElem && this.inputElem._elementRef.nativeElement.contains(event.target))) {
+    function () {
+        this.wasClickedInside = true;
+    };
+    /**
+     * @return {?}
+     */
+    AutoCompleteComponent.prototype.clickout = /**
+     * @return {?}
+     */
+    function () {
+        if (!this.wasClickedInside) {
             this.hideItemList();
         }
+        this.wasClickedInside = false;
     };
     /**
      * @private
@@ -503,7 +509,8 @@ var AutoCompleteComponent = /** @class */ (function () {
         ionAutoInput: [{ type: Output }],
         searchbarElem: [{ type: ViewChild, args: ['searchbarElem', { read: ElementRef },] }],
         inputElem: [{ type: ViewChild, args: ['inputElem',] }],
-        documentClickHandler: [{ type: HostListener, args: ['document:click', ['$event'],] }]
+        clickInside: [{ type: HostListener, args: ['click',] }],
+        clickout: [{ type: HostListener, args: ['document:click',] }]
     };
     return AutoCompleteComponent;
 }());
