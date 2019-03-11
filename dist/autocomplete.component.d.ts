@@ -24,6 +24,7 @@ export declare class AutoCompleteComponent implements ControlValueAccessor {
     defaultOpts: any;
     suggestions: any[];
     formValue: any;
+    private wasClickedInside;
     showList: boolean;
     private _showList;
     private selection;
@@ -98,7 +99,8 @@ export declare class AutoCompleteComponent implements ControlValueAccessor {
      * handle document click
      * @param event
      */
-    private documentClickHandler;
+    clickInside(): void;
+    clickout(): void;
     private getFormValue;
     private getLabel;
 }

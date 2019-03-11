@@ -3,7 +3,7 @@
   "version": "1.6.3",
   "scripts": {
     "publish": "npm publish dist",
-    "build": "gulp build",
+    "build": "rm -rf dist/ && gulp build",
     "build:watch": "gulp",
     "docs": "npm run docs:build",
     "docs:build": "compodoc -p tsconfig.json -n ionic2-auto-complete -d docs --hideGenerator",
